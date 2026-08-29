@@ -1,0 +1,14 @@
+{
+  "name": "connxn-ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check public/app.js && node --check public/canvas-runtime-fixed.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>connxn.ui</title>
+    <meta
+      name="description"
+      content="Local node-based AI studio for image and video generation."
+    />
+    <script>
+      (() => {
+        let prefs = {};
+        try { prefs = JSON.parse(localStorage.getItem("connxn.uiPrefs") || "{}") || {}; } catch {}
+        const saved = prefs.themeMode || localStorage.getItem("connxn.theme");
+        const legacy = {
+          "paper-circuit": "frutiger-aero",
+          abyss: "dark",
+          nocturno: "dark",
+          "mohawe-midnight": "dark",
+          "neon-void": "dark",
+          "analog-horror": "dark",
+          "dos-net": "dark",
+          "cassette-night": "dark",
+          "polar-studio": "light",
+          "terminal-green": "dark"
+        };
+        const normalized = legacy[saved] || saved;
+        const modes = ["system", "light", "dark", "github", "mono-light", "dark-blood", "vampire-masquerade", "blender", "maya", "yorha", "frutiger-aero", "tumblr-aqua"];
+        const mode = modes.includes(normalized) ? normalized : "system";
+        if (normalized !== saved && modes.includes(normalized)) localStorage.setItem("connxn.theme", normalized);
+        const resolved = mode === "system"
+          ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+          : mode;
+        document.documentElement.dataset.theme = resolved;
+        document.documentElement.dataset.themeMode = mode;
+      })();
+    </script>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/canvas.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="boot-screen">
+        <div class="boot-mark">cx</div>
+        <div class="boot-title">connxn.ui</div>
+      </div>
+    </div>
+    <script src="/canvas-runtime-fixed.js" defer></script>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
